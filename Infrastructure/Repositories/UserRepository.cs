@@ -65,27 +65,50 @@ namespace Infrastructure.Repositories
         {
             try
             {
-                var getUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == registerUserDTO.Email!);
-                if (getUser != null)
+                // Verificar si el usuario ya existe
+                var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == registerUserDTO.Email!);
+                if (existingUser != null)
                     return _apiResponseService.Error<RegistrationResponse>("User already exists");
 
-                _context.Users.Add(new ApplicationUser()
+                if (!registerUserDTO.RoleIds.Any())
+                    return _apiResponseService.Error<RegistrationResponse>("No roles provided");
+
+
+                // Verificar que todos los IDs de roles sean válidos
+                var roles = new List<Role>();
+
+                foreach (var roleId in registerUserDTO.RoleIds)
+                {
+                    var role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == roleId);
+                    if (role != null)
+                        roles.Add(role);
+                }
+
+                if (roles.Count != registerUserDTO.RoleIds.Count)
+                    return _apiResponseService.Error<RegistrationResponse>("One or more roles are invalid");
+
+                // Crear el usuario
+                var newUser = new ApplicationUser
                 {
                     Name = registerUserDTO.Name,
                     Email = registerUserDTO.Email,
-                    Password = BCrypt.Net.BCrypt.HashPassword(registerUserDTO.Password)
-                });
+                    Password = BCrypt.Net.BCrypt.HashPassword(registerUserDTO.Password),
+                    Roles = roles // Relacionar los roles directamente
+                };
 
+                // Guardar el usuario en la base de datos
+                _context.Users.Add(newUser);
                 await _context.SaveChangesAsync();
 
-                return _apiResponseService.Success(new RegistrationResponse(true, "Registration completed"), "User registered successfully");
+                return _apiResponseService.Success(new RegistrationResponse(true, "User registered successfully"), "Registration completed");
             }
             catch (Exception ex)
             {
-                // Si ocurre un error, devolvemos una respuesta de excepción
+                // Manejo de errores
                 return _apiResponseService.Exception<RegistrationResponse>("An error occurred during registration");
             }
         }
+
 
         private string GenerateJWToken(ApplicationUser user)
         {

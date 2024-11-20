@@ -12,5 +12,6 @@ namespace Application.DTOs
         public string? Password { get; set; } = string.Empty;
         [Required, Compare(nameof(Password))]
         public string? ConfirmPassword { get; set; } = string.Empty;
+        public List<int> RoleIds { get; set; } = new List<int>();
     }
 }
