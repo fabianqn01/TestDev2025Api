@@ -1,11 +1,18 @@
+using FluentValidation;
 using Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.OpenApi.Models;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
+using System.Reflection;
+using WebApi.Middleware;
+using Application;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddValidatorsFromAssembly(typeof(ApplicationAssemblyMarker).Assembly);
+builder.Services.AddFluentValidationAutoValidation();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(swagger =>
@@ -47,6 +54,8 @@ builder.Services.AddCors(options =>
                           .AllowAnyMethod()
                           .AllowAnyHeader());
 });
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -62,6 +71,7 @@ app.UseAuthentication();
 
 
 app.UseAuthorization();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 // Aquí es donde aplicas la política CORS
 app.MapControllers();
 

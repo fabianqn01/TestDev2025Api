@@ -1,4 +1,5 @@
-﻿using Application.Contracts;
+﻿using Application.Common.Exceptions;
+using Application.Contracts;
 using Application.DTOs;
 using Domain.Entities;
 
@@ -18,7 +19,7 @@ namespace Application.Services
             var entity = await _entityRepository.GetEntityAsync(id);
             if (entity == null)
             {
-                throw new ArgumentException("Entity not found");
+                throw new NotFoundException(nameof(Entity), id);
             }
 
             return new EntityDTO
@@ -58,7 +59,7 @@ namespace Application.Services
             var entity = await _entityRepository.GetEntityAsync(id);
             if (entity == null)
             {
-                return new RegistrationResponse(false, "Entity not found");
+                throw new NotFoundException(nameof(Entity), id);
             }
 
             entity.Name = entityDTO.Name;
@@ -74,7 +75,7 @@ namespace Application.Services
             var entity = await _entityRepository.GetEntityAsync(id);
             if (entity == null)
             {
-                return new RegistrationResponse(false, "Entity not found");
+                throw new NotFoundException(nameof(Entity), id);
             }
 
             var isDeleted = await _entityRepository.DeleteEntityAsync(id);

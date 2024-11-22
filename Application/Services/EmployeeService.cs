@@ -1,4 +1,5 @@
-﻿using Application.Contracts;
+﻿using Application.Common.Exceptions;
+using Application.Contracts;
 using Application.DTOs;
 using Domain.Entities;
 
@@ -18,7 +19,7 @@ namespace Application.Services
             var employee = await _employeeRepository.GetEmployeeAsync(id);
             if (employee == null)
             {
-                throw new ArgumentException("Employee not found");
+                throw new NotFoundException(nameof(Employee), id);
             }
 
             return new EmployeeDTO
@@ -63,7 +64,7 @@ namespace Application.Services
             var employee = await _employeeRepository.GetEmployeeAsync(id);
             if (employee == null)
             {
-                throw new ArgumentException("Employee not found");
+                throw new NotFoundException(nameof(Employee), id);
             }
 
             employee.Name = employeeDTO.Name;
@@ -80,7 +81,7 @@ namespace Application.Services
             var employee = await _employeeRepository.GetEmployeeAsync(id);
             if (employee == null)
             {
-                throw new ArgumentException("Employee not found");
+                throw new NotFoundException(nameof(Employee), id);
             }
 
             var result = await _employeeRepository.DeleteEmployeeAsync(id);
