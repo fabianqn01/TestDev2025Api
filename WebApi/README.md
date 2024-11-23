@@ -12,4 +12,4 @@ Asegúrate de tener instalados los siguientes componentes en tu equipo:
 2. Restaura la base de datos
 3. en appsettings.json actualiza el ConnectionStrings `Server=TU_SERVIDOR;Database=TestDev2025BD;Trusted_Connection=True;TrustServerCertificate=True;`
 4. compila el proyecto y ejecutarlo, deberia abrir en https://localhost:7182
-5. la url https://localhost:7182/swagger/index.html mostrará la documentación
+5. la url https://localhost:7182/swagger/index.html mostrará la documentación.
