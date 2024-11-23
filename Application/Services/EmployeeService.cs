@@ -45,7 +45,7 @@ namespace Application.Services
             });
         }
 
-        public async Task<RegistrationResponse> CreateEmployeeAsync(EmployeeDTO employeeDTO)
+        public async Task<RegistrationResponse<Employee>> CreateEmployeeAsync(EmployeeDTO employeeDTO)
         {
             var employee = new Employee
             {
@@ -56,10 +56,10 @@ namespace Application.Services
 
             var createdEmployee = await _employeeRepository.CreateEmployeeAsync(employeeDTO);
 
-            return new RegistrationResponse(true, "Employee created successfully");
+            return new RegistrationResponse<Employee>(true, "Employee created successfully", createdEmployee);
         }
 
-        public async Task<RegistrationResponse> UpdateEmployeeAsync(int id, EmployeeDTO employeeDTO)
+        public async Task<RegistrationResponse<Employee>> UpdateEmployeeAsync(int id, EmployeeDTO employeeDTO)
         {
             var employee = await _employeeRepository.GetEmployeeAsync(id);
             if (employee == null)
@@ -73,10 +73,10 @@ namespace Application.Services
 
             var updatedEmployee = await _employeeRepository.UpdateEmployeeAsync(id, employeeDTO);
 
-            return new RegistrationResponse(true, "Employee updated successfully");
+            return new RegistrationResponse<Employee>(true, "Employee updated successfully", updatedEmployee);
         }
 
-        public async Task<RegistrationResponse> DeleteEmployeeAsync(int id)
+        public async Task<RegistrationResponse<Employee>> DeleteEmployeeAsync(int id)
         {
             var employee = await _employeeRepository.GetEmployeeAsync(id);
             if (employee == null)
@@ -86,7 +86,7 @@ namespace Application.Services
 
             var result = await _employeeRepository.DeleteEmployeeAsync(id);
 
-            return new RegistrationResponse(result, result ? "Employee deleted successfully" : "Failed to delete employee");
+            return new RegistrationResponse<Employee>(result, result ? "Employee deleted successfully" : "Failed to delete employee");
         }
     }
 }

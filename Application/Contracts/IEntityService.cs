@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Domain.Entities;
 
 namespace Application.Contracts
 {
@@ -6,8 +7,8 @@ namespace Application.Contracts
     {
         Task<EntityDTO> GetEntityAsync(int id);
         Task<IEnumerable<EntityDTO>> GetAllEntitiesAsync();
-        Task<RegistrationResponse> CreateEntityAsync(EntityDTO entityDTO);
-        Task<RegistrationResponse> UpdateEntityAsync(int id, EntityDTO entityDTO);
-        Task<RegistrationResponse> DeleteEntityAsync(int id);
+        Task<RegistrationResponse<Entity>> CreateEntityAsync(EntityDTO entityDTO);
+        Task<RegistrationResponse<Entity>> UpdateEntityAsync(int id, EntityDTO entityDTO);
+        Task<RegistrationResponse<Entity>> DeleteEntityAsync(int id);
     }
 }

@@ -2,6 +2,7 @@
 using Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Application.Services;
+using Domain.Entities;
 
 namespace WebApi.Controllers
 {
@@ -28,7 +29,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<ApiResponse<RegistrationResponse>>> RegisterUser(RegisterUserDTO registerUserDTO)
+        public async Task<ActionResult<ApiResponse<RegistrationResponse<ApplicationUser>>>> RegisterUser(RegisterUserDTO registerUserDTO)
         {
             var result = await _user.RegisterUserAsync(registerUserDTO);
 

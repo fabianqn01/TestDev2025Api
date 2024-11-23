@@ -61,17 +61,17 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public async Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(RegisterUserDTO registerUserDTO)
+        public async Task<ApiResponse<RegistrationResponse<ApplicationUser>>> RegisterUserAsync(RegisterUserDTO registerUserDTO)
         {
             try
             {
                 // Verificar si el usuario ya existe
                 var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == registerUserDTO.Email!);
                 if (existingUser != null)
-                    return _apiResponseService.Error<RegistrationResponse>("User already exists");
+                    return _apiResponseService.Error<RegistrationResponse<ApplicationUser>>("User already exists");
 
                 if (!registerUserDTO.RoleIds.Any())
-                    return _apiResponseService.Error<RegistrationResponse>("No roles provided");
+                    return _apiResponseService.Error<RegistrationResponse<ApplicationUser>>("No roles provided");
 
 
                 // Verificar que todos los IDs de roles sean válidos
@@ -85,7 +85,7 @@ namespace Infrastructure.Repositories
                 }
 
                 if (roles.Count != registerUserDTO.RoleIds.Count)
-                    return _apiResponseService.Error<RegistrationResponse>("One or more roles are invalid");
+                    return _apiResponseService.Error<RegistrationResponse<ApplicationUser>>("One or more roles are invalid");
 
                 // Crear el usuario
                 var newUser = new ApplicationUser
@@ -100,12 +100,12 @@ namespace Infrastructure.Repositories
                 _context.Users.Add(newUser);
                 await _context.SaveChangesAsync();
 
-                return _apiResponseService.Success(new RegistrationResponse(true, "User registered successfully"), "Registration completed");
+                return _apiResponseService.Success(new RegistrationResponse<ApplicationUser>(true, "User registered successfully"), "Registration completed");
             }
             catch (Exception ex)
             {
                 // Manejo de errores
-                return _apiResponseService.Exception<RegistrationResponse>("An error occurred during registration");
+                return _apiResponseService.Exception<RegistrationResponse<ApplicationUser>>("An error occurred during registration");
             }
         }
 

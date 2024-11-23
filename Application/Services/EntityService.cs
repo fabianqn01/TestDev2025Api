@@ -41,7 +41,7 @@ namespace Application.Services
             });
         }
 
-        public async Task<RegistrationResponse> CreateEntityAsync(EntityDTO entityDTO)
+        public async Task<RegistrationResponse<Entity>> CreateEntityAsync(EntityDTO entityDTO)
         {
             var entity = new Entity
             {
@@ -51,10 +51,10 @@ namespace Application.Services
 
             var createdEntity = await _entityRepository.CreateEntityAsync(entity);
 
-            return new RegistrationResponse(true, "Entity created successfully");
+            return new RegistrationResponse<Entity>(true, "Entity created successfully",createdEntity);
         }
 
-        public async Task<RegistrationResponse> UpdateEntityAsync(int id, EntityDTO entityDTO)
+        public async Task<RegistrationResponse<Entity>> UpdateEntityAsync(int id, EntityDTO entityDTO)
         {
             var entity = await _entityRepository.GetEntityAsync(id);
             if (entity == null)
@@ -65,12 +65,12 @@ namespace Application.Services
             entity.Name = entityDTO.Name;
             entity.Description = entityDTO.Description;
 
-            await _entityRepository.UpdateEntityAsync(id, entity);
+            var updateEntity = await _entityRepository.UpdateEntityAsync(id, entity);
 
-            return new RegistrationResponse(true, "Entity updated successfully");
+            return new RegistrationResponse<Entity>(true, "Entity updated successfully", updateEntity);
         }
 
-        public async Task<RegistrationResponse> DeleteEntityAsync(int id)
+        public async Task<RegistrationResponse<Entity>> DeleteEntityAsync(int id)
         {
             var entity = await _entityRepository.GetEntityAsync(id);
             if (entity == null)
@@ -80,7 +80,7 @@ namespace Application.Services
 
             var isDeleted = await _entityRepository.DeleteEntityAsync(id);
 
-            return new RegistrationResponse(isDeleted, isDeleted ? "Entity deleted successfully" : "Failed to delete entity");
+            return new RegistrationResponse<Entity>(isDeleted, isDeleted ? "Entity deleted successfully" : "Failed to delete entity");
         }
     }
 }

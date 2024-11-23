@@ -3,13 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{A5C0EDE4-8F12-42A3-B2B9-904097E1E41B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{A5C0EDE4-8F12-42A3-B2B9-904097E1E41B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{C4E3C051-2E8A-42F3-A222-FC99FE120CF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{C4E3C051-2E8A-42F3-A222-FC99FE120CF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{E00E3A4B-7016-4DFF-A833-BCBF086433BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{E00E3A4B-7016-4DFF-A833-BCBF086433BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{8FF1CECD-51D9-4E2B-95F4-FB1CD05A8D68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{8FF1CECD-51D9-4E2B-95F4-FB1CD05A8D68}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E4E18A35-B600-4DF6-8A5F-3837866D1D7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Tests", "Application.Tests\Application.Tests.csproj", "{83525EBD-1341-4C35-BF7F-BF09CDDD16E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Test", "Domain.Test\Domain.Test.csproj", "{44D6FE2D-78D3-430C-918A-87045128F99B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Tests", "Infrastructure.Tests\Infrastructure.Tests.csproj", "{9EEA852A-5C22-4216-BB53-C0DFC0836E78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.Test", "WebApi.Test\WebApi.Test.csproj", "{52CABB84-669B-4278-8ACA-CA855DE41629}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +43,31 @@ Global
 		{8FF1CECD-51D9-4E2B-95F4-FB1CD05A8D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FF1CECD-51D9-4E2B-95F4-FB1CD05A8D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FF1CECD-51D9-4E2B-95F4-FB1CD05A8D68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83525EBD-1341-4C35-BF7F-BF09CDDD16E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83525EBD-1341-4C35-BF7F-BF09CDDD16E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83525EBD-1341-4C35-BF7F-BF09CDDD16E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83525EBD-1341-4C35-BF7F-BF09CDDD16E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D6FE2D-78D3-430C-918A-87045128F99B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D6FE2D-78D3-430C-918A-87045128F99B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D6FE2D-78D3-430C-918A-87045128F99B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D6FE2D-78D3-430C-918A-87045128F99B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EEA852A-5C22-4216-BB53-C0DFC0836E78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EEA852A-5C22-4216-BB53-C0DFC0836E78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EEA852A-5C22-4216-BB53-C0DFC0836E78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EEA852A-5C22-4216-BB53-C0DFC0836E78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52CABB84-669B-4278-8ACA-CA855DE41629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52CABB84-669B-4278-8ACA-CA855DE41629}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52CABB84-669B-4278-8ACA-CA855DE41629}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52CABB84-669B-4278-8ACA-CA855DE41629}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{83525EBD-1341-4C35-BF7F-BF09CDDD16E6} = {E4E18A35-B600-4DF6-8A5F-3837866D1D7E}
+		{44D6FE2D-78D3-430C-918A-87045128F99B} = {E4E18A35-B600-4DF6-8A5F-3837866D1D7E}
+		{9EEA852A-5C22-4216-BB53-C0DFC0836E78} = {E4E18A35-B600-4DF6-8A5F-3837866D1D7E}
+		{52CABB84-669B-4278-8ACA-CA855DE41629} = {E4E18A35-B600-4DF6-8A5F-3837866D1D7E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3450E49F-F1E9-45F7-BEA3-B0E10D862896}
